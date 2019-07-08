@@ -18,7 +18,7 @@ data "terraform_remote_state" "state" {
   }
 }
 
-module "codebuild-tf-lambda-deploy" {
+module "codebuild_tf_lambda_deploy" {
   source = "git::https://github.com/vishbhalla/terraform-aws-codebuild-lambda.git"
 
   region = var.region
