@@ -1,21 +1,22 @@
 terraform_state = {
   bucket = "937405989913-codetools-play-tf-state"
-  key    = "codetools/terraform.tfstate"
+  key    = "codetools-layers-testing/terraform.tfstate"
 }
 
-namespace = "example"
+namespace = "ccf"
 stage     = "dev"
-name      = "hello-world"
+name      = "layers"
 
 tags      = {
   Owner = "Airwalk Consulting"
 }
 
-github_owner = "vishbhalla"
-github_repo  = "terraform-aws-hello-world-lambda"
+github_owner = "AirWalk-Digital"
+github_repo  = "ccf-lambda-layers"
+git_branch   = "vish-testing-codebuild"
 ssm_param_name_github_token = "github_ouath_token_codepipeline"
 
-codebuild_project_description = "An example deploying a simple Hello World Python lambda"
+codebuild_project_description = "Airwalk CCF Lambda layers"
 
 codebuild_iam_policy_arns = [
   "arn:aws:iam::aws:policy/AWSLambdaFullAccess",
@@ -33,11 +34,11 @@ codepipeline_iam_policy_arns = [
 codebuild_env_vars = [
     {
       name  = "TF_VERSION"
-      value = "0.12.3"
+      value = "0.11.14"
     },
     {
       name  = "TF_ENV"
-      value = "sandbox3"
+      value = "aws-sandbox3"
     },
     {
       name  = "TF_ACTION"
@@ -48,8 +49,8 @@ codebuild_env_vars = [
       name  = "TF_IN_AUTOMATION"
       value = "1"
     },
-    //{
-    //  name  = "TF_LOG"
-    //  value = "DEBUG"  # Available options: TRACE, DEBUG, INFO, WARN or ERROR
-    //}
+    {
+      name  = "TF_LOG"
+      value = "DEBUG"  # Available options: TRACE, DEBUG, INFO, WARN or ERROR
+    }
 ]
