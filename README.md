@@ -1,6 +1,6 @@
 ### Description
 
-An example project utilizing this module: https://github.com/vishbhalla/terraform-aws-codebuild-deploy-tf
+An example project utilising this module: https://github.com/vishbhalla/terraform-aws-codebuild-deploy-tf
 
 ### Pre-Requisites
 
