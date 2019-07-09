@@ -42,15 +42,15 @@ codebuild_env_vars = [
     },
     {
       name  = "TF_ACTION"
-      value = "apply"
-      #value = "destroy"
+      #value = "apply"
+      value = "destroy"
     },
     {
       name  = "TF_IN_AUTOMATION"
       value = "1"
     },
-    {
-      name  = "TF_LOG"
-      value = "DEBUG"  # Available options: TRACE, DEBUG, INFO, WARN or ERROR
-    }
+    //{
+    //  name  = "TF_LOG"
+    //  value = "DEBUG"  # Available options: TRACE, DEBUG, INFO, WARN or ERROR
+    //}
 ]

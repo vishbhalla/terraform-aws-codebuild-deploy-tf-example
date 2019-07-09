@@ -1,6 +1,6 @@
 ### Description
 
-An example project utilizing this module: https://github.com/vishbhalla/terraform-aws-codebuild-lambda
+An example project utilizing this module: https://github.com/vishbhalla/terraform-aws-codebuild-deploy-tf
 
 ### Pre-Requisites
 
