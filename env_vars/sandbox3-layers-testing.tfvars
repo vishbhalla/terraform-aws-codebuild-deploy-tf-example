@@ -42,8 +42,8 @@ codebuild_env_vars = [
     },
     {
       name  = "TF_ACTION"
-      #value = "apply"
-      value = "destroy"
+      value = "apply"
+      #value = "destroy"
     },
     {
       name  = "TF_IN_AUTOMATION"
