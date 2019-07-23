@@ -1,14 +1,4 @@
 version: 3
 projects:
-- name: sandbox3
-  dir: .
+- dir: .
   workflow: sandbox3
-
-workflows:
-  sandbox3:
-    plan:
-      steps:
-      - init:
-          extra_args: ["-backend-config", "env_vars/sandbox3.conf"]
-      - plan:
-          extra_args: ["-var-file", "env_vars/sandbox3.tfvars"]
