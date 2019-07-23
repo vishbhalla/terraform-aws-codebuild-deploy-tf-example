@@ -1,4 +1,5 @@
 version: 3
+allowed_overrides: [workflow]
 projects:
 - name: sandbox3
   dir: .
