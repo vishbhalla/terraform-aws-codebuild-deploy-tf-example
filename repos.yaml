@@ -1,0 +1,13 @@
+repos:
+- id: /.*/
+  allowed_overrides: [workflow]
+  workflow: custom
+
+workflows:
+  sandbox3:
+    plan:
+      steps:
+      - init:
+          extra_args: ["-backend-config", "env_vars/sandbox3.conf"]
+      - plan:
+          extra_args: ["-var-file", "env_vars/sandbox3.tfvars"]
