@@ -1,7 +1,7 @@
 repos:
 - id: /.*/
   allowed_overrides: [workflow]
-  workflow: custom
+  workflow: sandbox3
 
 workflows:
   sandbox3:
