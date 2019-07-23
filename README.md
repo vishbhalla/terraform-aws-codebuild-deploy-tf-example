@@ -13,3 +13,4 @@ Terraform 0.12.x
 `terraform apply -var-file=<path>/<vars_filename>.tfvars`
 
 `terraform destroy -var-file=<path>/<vars_filename>.tfvars`
+
