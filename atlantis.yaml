@@ -2,3 +2,19 @@ version: 3
 projects:
 - dir: .
   workflow: sandbox3
+
+workflows:
+  sandbox3:
+    plan:
+      steps:
+      - run: echo init
+      - init:
+          extra_args: ["-backend-config", "env_vars/sandbox3.conf"]
+      - run: echo plan
+      - plan:
+          extra_args: ["-var-file", "env_vars/sandbox3.tfvars"]
+    apply:
+      steps:
+      - run: echo apply
+      - apply:
+          extra_args: ["-var-file", "env_vars/sandbox3.tfvars"]
