@@ -9,7 +9,6 @@ provider "aws" {
 
 module "codebuild_tf_lambda_deploy" {
   source = "git::https://github.com/AirWalk-Digital/terraform-aws-codebuild-deploy-tf.git"
-
   region                        = var.region
   name                          = var.name
   namespace                     = var.namespace
