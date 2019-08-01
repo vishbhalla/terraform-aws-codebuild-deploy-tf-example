@@ -1,0 +1,252 @@
+Refreshing Terraform state in-memory prior to plan...
+The refreshed state will be used to calculate this plan, but will not be
+persisted to local or remote state storage.
+
+module.codebuild_tf_lambda_deploy.data.aws_iam_policy_document.codepipeline: Refreshing state...
+module.codebuild_tf_lambda_deploy.data.aws_iam_policy_document.codebuild: Refreshing state...
+module.codebuild_tf_lambda_deploy.data.aws_caller_identity.current_account_id: Refreshing state...
+module.codebuild_tf_lambda_deploy.data.aws_ssm_parameter.github_token: Refreshing state...
+
+------------------------------------------------------------------------
+
+An execution plan has been generated and is shown below.
+Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # module.codebuild_tf_lambda_deploy.aws_codebuild_project.codebuild will be created
+  + resource "aws_codebuild_project" "codebuild" {
+      + arn            = (known after apply)
+      + badge_enabled  = false
+      + badge_url      = (known after apply)
+      + build_timeout  = 60
+      + description    = "An example deploying a simple Hello World Python lambda"
+      + encryption_key = (known after apply)
+      + id             = (known after apply)
+      + name           = "example-dev-hello-world-codebuild-eu-west-1"
+      + service_role   = (known after apply)
+
+      + artifacts {
+          + encryption_disabled = false
+          + type                = "CODEPIPELINE"
+        }
+
+      + environment {
+          + compute_type                = "BUILD_GENERAL1_SMALL"
+          + image                       = "aws/codebuild/standard:2.0"
+          + image_pull_credentials_type = "CODEBUILD"
+          + privileged_mode             = false
+          + type                        = "LINUX_CONTAINER"
+
+          + environment_variable {
+              + name  = "TF_VERSION"
+              + type  = "PLAINTEXT"
+              + value = "0.12.3"
+            }
+          + environment_variable {
+              + name  = "TF_ENV"
+              + type  = "PLAINTEXT"
+              + value = "sandbox3"
+            }
+          + environment_variable {
+              + name  = "TF_ACTION"
+              + type  = "PLAINTEXT"
+              + value = "destroy"
+            }
+          + environment_variable {
+              + name  = "TF_IN_AUTOMATION"
+              + type  = "PLAINTEXT"
+              + value = "1"
+            }
+        }
+
+      + source {
+          + type = "CODEPIPELINE"
+        }
+    }
+
+  # module.codebuild_tf_lambda_deploy.aws_codepipeline.codepipeline will be created
+  + resource "aws_codepipeline" "codepipeline" {
+      + arn      = (known after apply)
+      + id       = (known after apply)
+      + name     = "example-dev-hello-world-codepipeline-eu-west-1"
+      + role_arn = (known after apply)
+
+      + artifact_store {
+          + location = "xxxxxxxxxx-example-dev-hello-world-codebuild-eu-west-1"
+          + type     = "S3"
+        }
+
+      + stage {
+          + name = "Source"
+
+          + action {
+              + category         = "Source"
+              + configuration    = {
+                  + "Branch"     = "master"
+                  + "OAuthToken" = "xxxxxxxxxxxxxxxxxxxxx"
+                  + "Owner"      = "vishbhalla"
+                  + "Repo"       = "terraform-aws-hello-world-lambda"
+                }
+              + name             = "Source"
+              + output_artifacts = [
+                  + "source_output",
+                ]
+              + owner            = "ThirdParty"
+              + provider         = "GitHub"
+              + run_order        = (known after apply)
+              + version          = "1"
+            }
+        }
+      + stage {
+          + name = "Build"
+
+          + action {
+              + category         = "Build"
+              + configuration    = {
+                  + "ProjectName" = "example-dev-hello-world-codebuild-eu-west-1"
+                }
+              + input_artifacts  = [
+                  + "source_output",
+                ]
+              + name             = "Build"
+              + output_artifacts = [
+                  + "build_output",
+                ]
+              + owner            = "AWS"
+              + provider         = "CodeBuild"
+              + run_order        = (known after apply)
+              + version          = "1"
+            }
+        }
+    }
+
+  # module.codebuild_tf_lambda_deploy.aws_iam_role.codebuild will be created
+  + resource "aws_iam_role" "codebuild" {
+      + arn                   = (known after apply)
+      + assume_role_policy    = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action    = "sts:AssumeRole"
+                      + Effect    = "Allow"
+                      + Principal = {
+                          + Service = "codebuild.amazonaws.com"
+                        }
+                      + Sid       = "TrustPolicy"
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + create_date           = (known after apply)
+      + force_detach_policies = false
+      + id                    = (known after apply)
+      + max_session_duration  = 3600
+      + name                  = "example-dev-hello-world-codebuild-eu-west-1"
+      + path                  = "/"
+      + unique_id             = (known after apply)
+    }
+
+  # module.codebuild_tf_lambda_deploy.aws_iam_role.codepipeline will be created
+  + resource "aws_iam_role" "codepipeline" {
+      + arn                   = (known after apply)
+      + assume_role_policy    = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action    = "sts:AssumeRole"
+                      + Effect    = "Allow"
+                      + Principal = {
+                          + Service = "codepipeline.amazonaws.com"
+                        }
+                      + Sid       = "TrustPolicy"
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + create_date           = (known after apply)
+      + force_detach_policies = false
+      + id                    = (known after apply)
+      + max_session_duration  = 3600
+      + name                  = "example-dev-hello-world-codepipeline-eu-west-1"
+      + path                  = "/"
+      + unique_id             = (known after apply)
+    }
+
+  # module.codebuild_tf_lambda_deploy.aws_iam_role_policy_attachment.codebuild[0] will be created
+  + resource "aws_iam_role_policy_attachment" "codebuild" {
+      + id         = (known after apply)
+      + policy_arn = "arn:aws:iam::aws:policy/AWSLambdaFullAccess"
+      + role       = "example-dev-hello-world-codebuild-eu-west-1"
+    }
+
+  # module.codebuild_tf_lambda_deploy.aws_iam_role_policy_attachment.codebuild[1] will be created
+  + resource "aws_iam_role_policy_attachment" "codebuild" {
+      + id         = (known after apply)
+      + policy_arn = "arn:aws:iam::aws:policy/AmazonS3FullAccess"
+      + role       = "example-dev-hello-world-codebuild-eu-west-1"
+    }
+
+  # module.codebuild_tf_lambda_deploy.aws_iam_role_policy_attachment.codebuild[2] will be created
+  + resource "aws_iam_role_policy_attachment" "codebuild" {
+      + id         = (known after apply)
+      + policy_arn = "arn:aws:iam::aws:policy/CloudWatchLogsFullAccess"
+      + role       = "example-dev-hello-world-codebuild-eu-west-1"
+    }
+
+  # module.codebuild_tf_lambda_deploy.aws_iam_role_policy_attachment.codebuild[3] will be created
+  + resource "aws_iam_role_policy_attachment" "codebuild" {
+      + id         = (known after apply)
+      + policy_arn = "arn:aws:iam::aws:policy/AWSCodeBuildDeveloperAccess"
+      + role       = "example-dev-hello-world-codebuild-eu-west-1"
+    }
+
+  # module.codebuild_tf_lambda_deploy.aws_iam_role_policy_attachment.codebuild[4] will be created
+  + resource "aws_iam_role_policy_attachment" "codebuild" {
+      + id         = (known after apply)
+      + policy_arn = "arn:aws:iam::aws:policy/IAMFullAccess"
+      + role       = "example-dev-hello-world-codebuild-eu-west-1"
+    }
+
+  # module.codebuild_tf_lambda_deploy.aws_iam_role_policy_attachment.codepipeline[0] will be created
+  + resource "aws_iam_role_policy_attachment" "codepipeline" {
+      + id         = (known after apply)
+      + policy_arn = "arn:aws:iam::aws:policy/AmazonS3FullAccess"
+      + role       = "example-dev-hello-world-codepipeline-eu-west-1"
+    }
+
+  # module.codebuild_tf_lambda_deploy.aws_iam_role_policy_attachment.codepipeline[1] will be created
+  + resource "aws_iam_role_policy_attachment" "codepipeline" {
+      + id         = (known after apply)
+      + policy_arn = "arn:aws:iam::aws:policy/AWSCodeBuildDeveloperAccess"
+      + role       = "example-dev-hello-world-codepipeline-eu-west-1"
+    }
+
+  # module.codebuild_tf_lambda_deploy.aws_s3_bucket.artifcats will be created
+  + resource "aws_s3_bucket" "artifcats" {
+      + acceleration_status         = (known after apply)
+      + acl                         = "private"
+      + arn                         = (known after apply)
+      + bucket                      = "xxxxxxxxxx-example-dev-hello-world-codebuild-eu-west-1"
+      + bucket_domain_name          = (known after apply)
+      + bucket_regional_domain_name = (known after apply)
+      + force_destroy               = true
+      + hosted_zone_id              = (known after apply)
+      + id                          = (known after apply)
+      + region                      = (known after apply)
+      + request_payer               = (known after apply)
+      + website_domain              = (known after apply)
+      + website_endpoint            = (known after apply)
+
+      + versioning {
+          + enabled    = (known after apply)
+          + mfa_delete = (known after apply)
+        }
+    }
+
+Plan: 12 to add, 0 to change, 0 to destroy.
+
+------------------------------------------------------------------------
